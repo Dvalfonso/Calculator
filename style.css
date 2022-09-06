@@ -1,0 +1,56 @@
+h1 {
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    font-size: 50px;
+}
+
+.calculator {
+    height: 440px;
+    width: 320px;
+    background-color: #2f3e46;
+    border-radius: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mid {
+    display: flex;
+    justify-content: center;
+}
+
+.pant {
+    height: 80px;
+    width: 225px;
+    background-color: #FBFEF9;
+    margin-top: 20px;
+    border-radius: 6%;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    margin-left: 45px;
+}
+
+.buttons .but{
+    background-color: #FBFEF9;
+    width: 50px;
+    display: flex;
+    border-radius: 35%;
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    font-size: 20px;
+    font-weight:bolder;
+}
+
+#eq {
+    flex: 1;
+    margin-right: 25px;
+}
