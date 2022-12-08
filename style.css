@@ -5,6 +5,13 @@ h1 {
     color: #2f3e46;
 }
 
+#par {
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    font-size: 40px;
+    color: #2f3e46;
+}
+
 .calculator {
     height: 440px;
     width: 280px;
@@ -17,7 +24,8 @@ h1 {
 
 .mid {
     display: flex;
-    justify-content: center;
+    justify-content:center;
+    margin-top: 50px;
 }
 
 .pant {
@@ -90,4 +98,53 @@ p {
 .sat {
     background-color: #FBFEF9;
     border: none;
+}
+
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:center;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+#container {
+    display: flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    gap: 128px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+#github {
+    width: 35px;
+    height: 35px;
+}
+
+.fuente {
+    font-family: 'Amatic SC', cursive;
+    font-size: 30px;
+    color: #2f3e46;
+}
+
+#link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+a{
+    text-decoration: none;
 }
