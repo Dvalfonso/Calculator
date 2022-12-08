@@ -8,6 +8,7 @@ const botones = document.querySelectorAll('.but');
 //});
 
 let check = true;
+let ope = false;//variable para saber si el ultimo caracter es un operador 
 
 for (let i = 0; i < botones.length; i++){
     botones[i].addEventListener('click', function(){
@@ -15,7 +16,21 @@ for (let i = 0; i < botones.length; i++){
             pant.textContent = "";
             check = false;
         }
+        var ultimoCaracter = pant.textContent[pant.textContent.length - 1];
+        if (ultimoCaracter == '+' || ultimoCaracter == '-' || ultimoCaracter == '*' || ultimoCaracter == '/'){
+            ope = true;
+        }
+
         pant.textContent = pant.textContent + botones[i].textContent;
+        var ultimisimoCaracter = pant.textContent[pant.textContent.length - 1];
+
+        if (ope == true && (ultimisimoCaracter == '+' || ultimisimoCaracter == '-' || ultimisimoCaracter == '*' || ultimisimoCaracter == '/')){
+            let cadena = pant.textContent;
+            let cadenaCorregida = cadena.substring(0, cadena.length - 1);
+            pant.textContent = cadenaCorregida;
+            ope = false;
+        }
+
     })
 }
 
@@ -35,25 +50,18 @@ del.addEventListener('click', function(){
 let equal = document.querySelector('#equal');
 
 equal.addEventListener('click', function(){
-    multiply(pant.textContent);
+    console.log(pant.textContent[pant.textContent.length - 1]);
 })
 
-function multiply(cadena){
+//Evitar que el usuario ingrese mas de un operador seguido
+/* SI el ultimo caracter es un operador ENTONCES
+        MIENTRAS el usuario ingrese un operador HACER
+                borrar el ultimo caracter
+                enviar un mensaje
+        FMIENTRAS
+    FSI 
+*/
 
-    let check = false;
-    while(check == false){
-        let ante;
-        let coso;
-        for (let i = 0; i < cadena.length; i++){
-            ante = ante + cadena[i];
-            if (cadena[i] == "*"){
-                coso = ante.shift();
-                ante = coso;
-                console.log(ante);
-            }
-        }
-        check = true;
-    }
-}
+
 
 //una forma de hacer las operaciones es guardar los numeros de la pantalla cuando se presiona algun boton de operacion
