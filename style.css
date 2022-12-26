@@ -26,6 +26,8 @@ h1 {
     display: flex;
     justify-content:center;
     margin-top: 50px;
+    flex: 1;
+    margin-right: 160px;
 }
 
 .pant {
@@ -108,6 +110,7 @@ p {
     justify-content:center;
     margin-top: 30px;
     gap: 10px;
+    padding-right: 80px;
 }
 
 #container {
@@ -115,6 +118,7 @@ p {
     flex-direction:row;
     justify-content:flex-start;
     gap: 128px;
+    width: 100%;
 }
 
 body {
@@ -125,7 +129,7 @@ body {
 #header {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 300px;
 }
 
 #github {
@@ -147,4 +151,17 @@ body {
 
 a{
     text-decoration: none;
+}
+
+#parrafoDerecho {
+    width: 100%;
+}
+
+#equal {
+    background-color: #FBFEF9;
+    width: 50px;
+    display: flex;
+    border-radius: 35%;
+    display: flex;
+    justify-content: center;
 }
