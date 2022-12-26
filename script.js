@@ -59,8 +59,8 @@ function operadorMult(cadena){//retorna la posicion de un operador * o /
 }
 //funcion multiplicar que agarra dos numeros y los multiplica
 function multiply(num1, num2){
-    let result = parseInt(num1) * parseInt(num2);
-    result = result.toString;
+    let result = Number(num1) * Number(num2);
+    result = result.toString();
     return result;
 }
 //funcion dividir que agarra dos numeros y los multiplica
@@ -88,7 +88,6 @@ equal.addEventListener('click', function(){
     console.log(hayMultiplicacion);
 
     while (hayMultiplicacion == true){
-        console.log("entra1");
         let pos = operadorMult(pant.textContent);
         //encontrar el operando1 y el operando2
         //voy a buscar el ultimo operador antes del *
@@ -96,32 +95,33 @@ equal.addEventListener('click', function(){
         let lastOperator;
         let operador1 = [];
         let operador2 = [];
-        console.log(ultimoOperador);
-        console.log("entra2");
+
+        //obtener operador 1
         for (let i = ultimoOperador + 1, j = 0; i < pos; i++){
-            console.log("entra3");
             operador1[j] = pant.textContent[i];
             console.log(operador1[j]);
             j++;
         }
-        console.log(operador1);
+        console.log("Operador1: ", operador1);
 
         let i = pos + 1;
         let j = 0;
 
+        //obtener operador 2
         while (pant.textContent[i] != '*' && pant.textContent[i] != '/' && pant.textContent[i] != '+' && pant.textContent[i] != '-' && pant.textContent[i] != undefined) {
-            console.log("entra4");
             lastOperator = i + 1;
             operador2[j] = pant.textContent[i];
             j++;
-            console.log("pantTextContent[i]: ",pant.textContent[i]);
-            console.log("j: ", j);
             i++;
         }
+        operador1 = operador1.join('');
+        operador2 = operador2.join('');
+        console.log(operador1);
         console.log(operador2);
 
+        //multiplicar operador1 con operador2
         let multiplicacion = multiply(operador1, operador2);
-        console.log(multiplicacion);
+        console.log("Resultado: ", multiplicacion);
         let nuevaCadena;
 
         for (let i = 0; i < ultimoOperador; i++){
