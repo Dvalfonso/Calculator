@@ -79,68 +79,103 @@ function buscarUltimoOperador(posicion, cadena){
 }
 
 equal.addEventListener('click', function(){
+    console.log("Entra equal");
     //mientras siga habiendo operadores * 
     let hayMultiplicacion;
 
     if (operadorMult(pant.textContent) != undefined){
         hayMultiplicacion = true;
     }
-    console.log(hayMultiplicacion);
 
     while (hayMultiplicacion == true){
         let pos = operadorMult(pant.textContent);
         //encontrar el operando1 y el operando2
         //voy a buscar el ultimo operador antes del *
         let ultimoOperador = buscarUltimoOperador(pos, pant.textContent);
+        if (ultimoOperador == undefined){
+            ultimoOperador = -1;
+        }
         let lastOperator;
-        let operador1 = [];
-        let operador2 = [];
+        let operando1 = [];
+        let operando2 = [];
 
-        //obtener operador 1
+        //obtener operando 1
         for (let i = ultimoOperador + 1, j = 0; i < pos; i++){
-            operador1[j] = pant.textContent[i];
-            console.log(operador1[j]);
+            operando1[j] = pant.textContent[i];
             j++;
         }
-        console.log("Operador1: ", operador1);
 
         let i = pos + 1;
         let j = 0;
 
         //obtener operador 2
         while (pant.textContent[i] != '*' && pant.textContent[i] != '/' && pant.textContent[i] != '+' && pant.textContent[i] != '-' && pant.textContent[i] != undefined) {
-            lastOperator = i + 1;
-            operador2[j] = pant.textContent[i];
+            lastOperator = i;
+            operando2[j] = pant.textContent[i];
             j++;
             i++;
         }
-        operador1 = operador1.join('');
-        operador2 = operador2.join('');
-        console.log(operador1);
-        console.log(operador2);
+        operando1 = operando1.join('');
+        operando2 = operando2.join('');
+        console.log("operando1: ", operando1);
+        console.log("operando2: ", operando2);
 
-        //multiplicar operador1 con operador2
-        let multiplicacion = multiply(operador1, operador2);
+        //multiplicar operando1 con operando2
+        let multiplicacion = multiply(operando1, operando2);
         console.log("Resultado: ", multiplicacion);
-        let nuevaCadena;
+        let nuevaCadena = [];
 
+        //ultimo operador es el primer operador antes de la multiplicacion
         for (let i = 0; i < ultimoOperador; i++){
             nuevaCadena[i] = pant.textContent[i];
         }
+        nuevaCadena = nuevaCadena.join('');
+        console.log("CadenaAnterior: ", nuevaCadena);
 
-        nuevaCadena = nuevaCadena + multiplicacion;
+        console.log("pant.textContent[lastOperator + 1]: ", pant.textContent[lastOperator + 1]);
+        console.log("pant.textContent[ultimoOperador]: ", pant.textContent[ultimoOperador]);
 
-        let ultimoSopeda;
+        if (pant.textContent[lastOperator + 1] == undefined && pant.textContent[ultimoOperador] == undefined){
+           nuevaCadena = multiplicacion;
+        }
+        else if (pant.textContent[ultimoOperador] == undefined && pant.textContent[lastOperator + 1] != undefined){
+            let ultimoSopeda = [];
 
-        for (let i = lastOperator; pant.textContent[i] != undefined; i++) {
             let j = 0;
-            ultimoSopeda[j] = pant.textContent[i];
-            j++;
+            
+            for (let i = lastOperator + 1; pant.textContent[i] != undefined; i++) {
+                ultimoSopeda[j] = pant.textContent[i];
+                j++;
+            }
+        
+            ultimoSopeda = ultimoSopeda.join('');
+
+            nuevaCadena = multiplicacion + ultimoSopeda;
+        }
+        else if (pant.textContent[lastOperator + 1] == undefined && pant.textContent[ultimoOperador] != undefined){
+            nuevaCadena = nuevaCadena + pant.textContent[ultimoOperador] + multiplicacion;
+        }
+        else {
+
+            nuevaCadena = nuevaCadena + pant.textContent[ultimoOperador] + multiplicacion;
+
+            let ultimoSopeda = [];
+            let j = 0;
+
+            for (let i = lastOperator + 1; pant.textContent[i] != undefined; i++) {
+                ultimoSopeda[j] = pant.textContent[i];
+                console.log("ultimoSopeda[i]: " ,ultimoSopeda);
+                j++;
+            }
+    
+            ultimoSopeda = ultimoSopeda.join('');
+            console.log("ultimoSopeda: ", ultimoSopeda);
+            nuevaCadena = nuevaCadena + ultimoSopeda;
         }
 
-        nuevaCadena = nuevaCadena + ultimoSopeda;
         console.log(nuevaCadena);
         pant.textContent = nuevaCadena;
+
 
         if (operadorMult(pant.textContent != undefined)){
             hayMultiplicacion = true;
