@@ -79,7 +79,6 @@ function buscarUltimoOperador(posicion, cadena){
 }
 
 equal.addEventListener('click', function(){
-    console.log("Entra equal");
     //mientras siga habiendo operadores * 
     let hayMultiplicacion;
 
@@ -88,6 +87,7 @@ equal.addEventListener('click', function(){
     }
 
     while (hayMultiplicacion == true){
+        console.log("Entra while multiplicacion");
         let pos = operadorMult(pant.textContent);
         //encontrar el operando1 y el operando2
         //voy a buscar el ultimo operador antes del *
@@ -176,15 +176,16 @@ equal.addEventListener('click', function(){
         console.log(nuevaCadena);
         pant.textContent = nuevaCadena;
 
-
-        if (operadorMult(pant.textContent != undefined)){
-            hayMultiplicacion = true;
-        }
-        else{
+        
+        if (operadorMult(pant.textContent) == undefined){
             hayMultiplicacion = false;
         }
 
+        console.log("operadorMUlt: ", operadorMult(pant.textContent));
+        console.log("Hay multiplicacion: ", hayMultiplicacion);
     }
+    //Hasta aca la multiplicacion funciona correctamente
+
 })
 
 //si el ultimo caracter es un operador entonces llamo a la funcion (* / + -) que tome la cadena anterior  y que termine
