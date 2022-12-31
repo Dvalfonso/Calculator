@@ -57,6 +57,15 @@ function operadorMult(cadena){//retorna la posicion de un operador * o /
         }
     }
 }
+
+function operadorDiv(cadena){
+    for (let i = 0; i < cadena.length; i++){
+        if(cadena[i] == '/'){
+            return i;
+        }
+    }
+}
+
 //funcion multiplicar que agarra dos numeros y los multiplica
 function multiply(num1, num2){
     let result = Number(num1) * Number(num2);
@@ -64,6 +73,11 @@ function multiply(num1, num2){
     return result;
 }
 //funcion dividir que agarra dos numeros y los multiplica
+function divide(num1, num2){
+    let result = Number(num1) / Number(num2);
+    result = result.toString();
+    return result;
+}
 
 //busca y devuelve la posicion del ultimo operador antes de la posicion dada
 function buscarUltimoOperador(posicion, cadena){
@@ -185,6 +199,112 @@ equal.addEventListener('click', function(){
         console.log("Hay multiplicacion: ", hayMultiplicacion);
     }
     //Hasta aca la multiplicacion funciona correctamente
+
+    let hayDivision;
+
+    if (operadorDiv(pant.textContent) != undefined){
+        hayDivision = true;
+    }
+
+    while (hayDivision == true){
+        console.log("Entra la division");
+        let pos = operadorDiv(pant.textContent);
+
+        let ultimoOperador = buscarUltimoOperador(pos, pant.textContent);
+        if (ultimoOperador == undefined){
+            ultimoOperador = -1;
+        }
+        let lastOperator;
+        let operando1 = [];
+        let operando2 = [];
+
+        //obtener operando 1
+        for (let i = ultimoOperador + 1, j = 0; i < pos; i++){
+            operando1[j] = pant.textContent[i];
+            j++;
+        }
+
+        let i = pos + 1;
+        let j = 0;
+
+        //obtener operador 2
+        while (pant.textContent[i] != '*' && pant.textContent[i] != '/' && pant.textContent[i] != '+' && pant.textContent[i] != '-' && pant.textContent[i] != undefined) {
+            lastOperator = i;
+            operando2[j] = pant.textContent[i];
+            j++;
+            i++;
+        }
+        operando1 = operando1.join('');
+        operando2 = operando2.join('');
+        console.log("operando1: ", operando1);
+        console.log("operando2: ", operando2);
+
+        let division = divide(operando1, operando2);
+        console.log("Resultado: ", division);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
+        let nuevaCadena = [];
+
+        //ultimo operador es el primer operador antes de la multiplicacion
+        for (let i = 0; i < ultimoOperador; i++){
+            nuevaCadena[i] = pant.textContent[i];
+        }
+        nuevaCadena = nuevaCadena.join('');
+        console.log("CadenaAnterior: ", nuevaCadena);
+
+        console.log("pant.textContent[lastOperator + 1]: ", pant.textContent[lastOperator + 1]);
+        console.log("pant.textContent[ultimoOperador]: ", pant.textContent[ultimoOperador]);
+
+        if (pant.textContent[lastOperator + 1] == undefined && pant.textContent[ultimoOperador] == undefined){
+           nuevaCadena = division;
+        }
+        else if (pant.textContent[ultimoOperador] == undefined && pant.textContent[lastOperator + 1] != undefined){
+            let ultimoSopeda = [];
+
+            let j = 0;
+            
+            for (let i = lastOperator + 1; pant.textContent[i] != undefined; i++) {
+                ultimoSopeda[j] = pant.textContent[i];
+                j++;
+            }
+        
+            ultimoSopeda = ultimoSopeda.join('');
+
+            nuevaCadena = division + ultimoSopeda;
+        }
+        else if (pant.textContent[lastOperator + 1] == undefined && pant.textContent[ultimoOperador] != undefined){
+            nuevaCadena = nuevaCadena + pant.textContent[ultimoOperador] + division;
+        }
+        else {
+
+            nuevaCadena = nuevaCadena + pant.textContent[ultimoOperador] + division;
+
+            let ultimoSopeda = [];
+            let j = 0;
+
+            for (let i = lastOperator + 1; pant.textContent[i] != undefined; i++) {
+                ultimoSopeda[j] = pant.textContent[i];
+                console.log("ultimoSopeda[i]: " ,ultimoSopeda);
+                j++;
+            }
+    
+            ultimoSopeda = ultimoSopeda.join('');
+            console.log("ultimoSopeda: ", ultimoSopeda);
+            nuevaCadena = nuevaCadena + ultimoSopeda;
+        }
+
+        console.log(nuevaCadena);
+        pant.textContent = nuevaCadena;
+
+        
+        if (operadorDiv(pant.textContent) == undefined){
+            hayDivision = false;
+        }
+
+        console.log("operadorDiv: ", operadorDiv(pant.textContent));
+        console.log("Hay division: ", hayDivision);
+    }
 
 })
 
